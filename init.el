@@ -14,6 +14,7 @@
 
 (require 'visual_settings)
 (require 'edit_settings)
+(require 'hl-tags-mode)
 
 (setq ring-bell-function 'ignore)
 
@@ -93,7 +94,8 @@
  '(my-global-highlight-indentation-mode nil)
  '(package-selected-packages
    (quote
-    (indent-guide highlight-indent-guides elpy paredit magit solarized-theme nlinum-relative linum-relative smex visual-regexp smartparens smart-tab rainbow-delimiters monokai-theme hlinum highlight-parentheses highlight-indentation god-mode expand-region))))
+    (yasnippet-snippets flycheck python-environment codesearch hydra company-rtags rtags ggtags emamux web-mode hideshowvis rainbow-mode indent-guide highlight-indent-guides elpy paredit magit solarized-theme nlinum-relative linum-relative smex visual-regexp smartparens smart-tab rainbow-delimiters monokai-theme hlinum highlight-parentheses highlight-indentation god-mode expand-region)))
+ '(smart-tab-using-hippie-expand nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -108,6 +110,7 @@
  '(highlight ((t (:underline nil))))
  '(highlight-indentation-face ((t (:background "#383838"))))
  '(hl-paren-face ((t (:underline nil :weight bold))) t)
+ '(hs-face ((t (:box 1))))
  '(linum ((t (:inherit (default)))))
  '(linum-highlight-face ((t (:inherit (highlight default)))))
  '(minimap-active-region-background ((t (:inherit highlight))) t)

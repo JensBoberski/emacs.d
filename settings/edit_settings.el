@@ -4,6 +4,7 @@
 (xterm-mouse-mode 1)
 
 
+
 (defun comment-eclipse ()
   (interactive)
   (let ((start (line-beginning-position))
@@ -84,9 +85,8 @@
 (global-set-key (kbd "C-/") 'qrc)
 
 
-;; No electric indent
 (setq electric-indent-mode nil)
-
+(define-key global-map (kbd "RET") 'newline-and-indent)
 ;; expand active region
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
@@ -100,14 +100,29 @@
 (sp-pair "\left}" "\\right}")
 (sp-pair "\\*" "*\\")
 
-
+(electric-pair-mode t)
 ;; keyboard shortcuts
 (global-set-key  [f7]  'compile)
 (global-set-key  [f8]  'next-error)
 (global-set-key  [f9]  'shell-command)
 
-(setq-default c-basic-offset 2 c-default-style "linux")
+(setq-default c-basic-offset 2 c-default-style "k&r")
 
+; style I want to use in c++ mode
+(c-add-style "my-style"
+	     '("stroustrup"
+	       (indent-tabs-mode . nil)        ; use spaces rather than tabs
+	       (c-basic-offset . 4)            ; indent by four spaces
+	       (c-offsets-alist . ((inline-open . 1)  ; custom indentation rules
+				   (brace-list-open . 1)
+				   (statement-case-open . +)))))
+
+(defun my-c++-mode-hook ()
+  (c-set-style "my-style")        ; use my-style defined above
+  (auto-fill-mode)
+  (c-toggle-auto-hungry-state 1))
+
+(add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
 (global-set-key (kbd "<escape>") 'god-local-mode)
 
@@ -118,5 +133,35 @@
 
 (add-hook 'god-mode-enabled-hook 'my-update-cursor)
 (add-hook 'god-mode-disabled-hook 'my-update-cursor)
+
+
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/snippets")
+
+(define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
+
+
+(defun python-args-to-google-docstring (text &optional make-fields)
+  "Return a reST docstring format for the python arguments in yas-text."
+  (let* ((indent (concat "\n" (make-string (current-column) 32)))
+         (args (python-split-args text))
+     (nr 0)
+         (formatted-args
+      (mapconcat
+       (lambda (x)
+         (concat "   " (nth 0 x)
+             (if make-fields (format " ${%d:arg%d}" (cl-incf nr) nr))
+             (if (nth 1 x) (concat " \(default " (nth 1 x) "\)"))))
+       args
+       indent)))
+    (unless (string= formatted-args "")
+      (concat
+       (mapconcat 'identity
+          (list "" "Args:" formatted-args)
+          indent)
+       "\n"))))
+
+
 
 (provide 'edit_settings)
