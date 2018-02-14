@@ -94,7 +94,7 @@
  '(my-global-highlight-indentation-mode nil)
  '(package-selected-packages
    (quote
-    (yasnippet-snippets flycheck python-environment codesearch hydra company-rtags rtags ggtags emamux web-mode hideshowvis rainbow-mode indent-guide highlight-indent-guides elpy paredit magit solarized-theme nlinum-relative linum-relative smex visual-regexp smartparens smart-tab rainbow-delimiters monokai-theme hlinum highlight-parentheses highlight-indentation god-mode expand-region)))
+    (virtualenvwrapper pylint virtualenv anaconda-mode jedi yasnippet-snippets flycheck python-environment codesearch hydra company-rtags rtags ggtags emamux web-mode hideshowvis rainbow-mode indent-guide highlight-indent-guides elpy paredit magit solarized-theme nlinum-relative linum-relative smex visual-regexp smartparens smart-tab rainbow-delimiters monokai-theme hlinum highlight-parentheses highlight-indentation god-mode expand-region)))
  '(smart-tab-using-hippie-expand nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -125,3 +125,8 @@
 your recently and most frequently used commands.")
 
 (global-set-key (kbd "M-x") 'smex)
+
+
+;python
+
+(elpy-enable)
